@@ -45,6 +45,10 @@ func (s *server) webSocketHandler(ws *websocket.Conn) {
 		log.Println(err)
 	}
 
+	joinMsg := fmt.Sprintf("Server: New Member joined. (Total: %d)", len(s.clients))
+
+	s.sendToEveryone(joinMsg)
+
 	for {
 		msg := ""
 		err := websocket.Message.Receive(ws, &msg)
